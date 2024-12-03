@@ -1,40 +1,39 @@
-export const generateCSV = (metrics, graphData, graphImage) => {
-  const headers = ["Record", ...metrics].join(",");
+import { Workbook } from "exceljs";
+import { saveAs } from "file-saver";
 
-  // Generating CSV data from graphData
-  const csvData = graphData.map(
-    (row, index) => `Record ${index + 1},${row.join(",")}`
-  );
+let excelBlob = null; // Store the blob globally
 
-  // Generating the CSV content with base64 image at the end
-  const csvContent = [
-    headers,
-    ...csvData,
-    "", // Blank line for separation
-    "Graph Image:", // A label for the image part
-    graphImage, // Add the base64 image here (as string)
-  ].join("\n");
+export const generateCSV = async (metrics, graphData, graphImage) => {
+  const workbook = new Workbook();
+  const worksheet = workbook.addWorksheet("Report");
 
-  // Creating a Blob from the CSV content
-  const blob = new Blob([csvContent], { type: "text/csv" });
+  // Add headers
+  worksheet.addRow(["Record", ...metrics]);
 
-  // Creating a URL for the Blob object
-  const url = URL.createObjectURL(blob);
+  // Add data
+  graphData.forEach((row, index) => {
+    worksheet.addRow([`Record ${index + 1}`, ...row]);
+  });
 
-  // Creating a temporary link element for downloading the CSV
-  const a = document.createElement("a");
-  a.href = url;
+  // Add image
+  const imageId = workbook.addImage({
+    base64: graphImage,
+    extension: "png",
+  });
+  worksheet.addImage(imageId, {
+    tl: { col: 0, row: graphData.length + 2 },
+    ext: { width: 500, height: 300 },
+  });
 
-  // Setting the download filename (this will trigger download in the Downloads folder)
-  a.download = "custom_report.csv";
+  // Save workbook to a file
+  const buffer = await workbook.xlsx.writeBuffer();
+  excelBlob = new Blob([buffer], { type: "application/octet-stream" });
+};
 
-  // Triggering the download by simulating a click event
-  document.body.appendChild(a);
-  a.click();
-
-  // Removing the temporary link element after download
-  document.body.removeChild(a);
-
-  // Revoke the object URL after use to release memory
-  URL.revokeObjectURL(url);
+export const downloadExcel = () => {
+  if (excelBlob) {
+    saveAs(excelBlob, "custom_report.xlsx");
+  } else {
+    alert("No Excel file generated yet!");
+  }
 };

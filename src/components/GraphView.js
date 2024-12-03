@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { generateCSV, downloadExcel } from "./csvGenerator";
 
 ChartJS.register(
   CategoryScale,
@@ -36,6 +37,9 @@ const GraphView = ({ selectedMetrics, setGraphData, setGraphImage }) => {
       setTimeout(() => {
         const base64Image = chartRef.current.toBase64Image();
         setGraphImage(base64Image);
+
+        // Generate CSV but don't download yet
+        generateCSV(selectedMetrics, data, base64Image);
       }, 500); // Allow time for chart rendering
     }
   }, [selectedMetrics, setGraphData, setGraphImage]);
@@ -79,6 +83,7 @@ const GraphView = ({ selectedMetrics, setGraphData, setGraphImage }) => {
       >
         <Bar ref={chartRef} data={data} options={options} />
       </div>
+      <button onClick={downloadExcel}>Download Excel</button>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MetricSelector from "./MetricSelector";
 import GraphView from "./GraphView";
-import { generateCSV } from "./csvGenerator"; // Change to Excel generator
+import { downloadExcel } from "./csvGenerator";
 
 const metricsList = [
   "Master-O ID",
@@ -52,7 +52,7 @@ const CustomReport = () => {
       alert("Please generate the graph first.");
       return;
     }
-    generateCSV(selectedMetrics, graphData, graphImage); // Now calls generateExcel instead of generateCSV
+    downloadExcel(selectedMetrics, graphData, graphImage);
   };
 
   return (
