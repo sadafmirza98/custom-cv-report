@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MetricSelector from "./MetricSelector";
 import GraphView from "./GraphView";
-import { generateCSV } from "./csvGenerator";
+import { generateCSV } from "./csvGenerator"; // Change to Excel generator
 
 const metricsList = [
   "Master-O ID",
@@ -23,6 +23,8 @@ const metricsList = [
 
 const CustomReport = () => {
   const [selectedMetrics, setSelectedMetrics] = useState([]);
+  const [graphData, setGraphData] = useState([]);
+  const [graphImage, setGraphImage] = useState(null);
   const [showGraph, setShowGraph] = useState(false);
 
   const handleMetricChange = (metric) => {
@@ -41,12 +43,16 @@ const CustomReport = () => {
     setShowGraph(true);
   };
 
-  const handleDownloadCSV = () => {
+  const handleDownloadExcel = () => {
     if (selectedMetrics.length === 0) {
       alert("Please select at least one metric.");
       return;
     }
-    generateCSV(selectedMetrics);
+    if (graphData.length === 0) {
+      alert("Please generate the graph first.");
+      return;
+    }
+    generateCSV(selectedMetrics, graphData, graphImage); // Now calls generateExcel instead of generateCSV
   };
 
   return (
@@ -58,9 +64,16 @@ const CustomReport = () => {
       />
       <div className="report-actions">
         <button onClick={handleGenerateReport}>Generate Report</button>
-        <button onClick={handleDownloadCSV}>Download CSV</button>
+        <button onClick={handleDownloadExcel}>Download Excel</button>{" "}
+        {/* Button now says 'Download Excel' */}
       </div>
-      {showGraph && <GraphView selectedMetrics={selectedMetrics} />}
+      {showGraph && (
+        <GraphView
+          selectedMetrics={selectedMetrics}
+          setGraphData={setGraphData}
+          setGraphImage={setGraphImage}
+        />
+      )}
     </div>
   );
 };
