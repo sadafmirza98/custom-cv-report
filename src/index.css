@@ -1,52 +1,144 @@
+/* styles.css */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
 body {
+  font-family: "Inter", sans-serif;
+  background-color: #f1f5f9;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-.app {
-  font-family: Arial, sans-serif;
-  padding: 20px;
+  padding: 0;
+  color: #212529;
 }
 
 .custom-report {
-  margin-top: 20px;
+  max-width: 900px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e9ecef;
 }
 
-.metric-selector ul {
-  list-style: none;
-  padding: 0;
-}
-
-.metric-selector li {
-  margin: 5px 0;
+.custom-report h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  color: #343a40;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.8px;
 }
 
 .report-actions {
-  margin: 20px 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 .report-actions button {
-  margin-right: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
+  background: linear-gradient(90deg, #2a9d8f, #264653);
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.report-actions button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.report-actions button:disabled {
+  background: #adb5bd;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.metric-selector {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+}
+
+.metric-selector h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #495057;
+}
+
+.metric-selector .metric-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.metric-selector input[type="checkbox"] {
+  margin-right: 0.8rem;
+  width: 20px;
+  height: 20px;
+  accent-color: #2a9d8f;
+  cursor: pointer;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
+.metric-selector label {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #495057;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.metric-selector label:hover {
+  color: #2a9d8f;
 }
 
 .graph-view {
-  margin-top: 20px;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.powerbi-placeholder {
-  margin-top: 20px;
-  padding: 20px;
-  background: #f9f9f9;
-  border: 1px solid #ddd;
+.graph-view h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 1rem;
+}
+
+.graph-view canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+}
+@media (max-width: 600px) {
+  .custom-report {
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  .report-actions {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .report-actions button {
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+  }
 }

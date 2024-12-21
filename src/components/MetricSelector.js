@@ -3,7 +3,7 @@ import React from "react";
 const MetricSelector = ({ metrics, selectedMetrics, onMetricChange }) => {
   return (
     <div className="metric-selector">
-      <h3>Select Metrics</h3>
+      <h3>Pick Metrics to Analyze</h3>
       <ul>
         {metrics.map((metric) => (
           <li key={metric}>

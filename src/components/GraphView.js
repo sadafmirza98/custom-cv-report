@@ -83,7 +83,9 @@ const GraphView = ({ selectedMetrics, setGraphData, setGraphImage }) => {
       >
         <Bar ref={chartRef} data={data} options={options} />
       </div>
-      <button onClick={downloadExcel}>Download Excel</button>
+      <div className="report-actions">
+        <button onClick={downloadExcel}>Download Excel</button>
+      </div>
     </div>
   );
 };
