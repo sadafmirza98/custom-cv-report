@@ -11,7 +11,7 @@ body {
 
 .custom-report {
   max-width: 900px;
-  margin: 4rem auto;
+  margin: 2rem auto;
   padding: 2rem;
   background-color: #ffffff;
   border-radius: 12px;
@@ -141,4 +141,15 @@ body {
     font-size: 0.9rem;
     padding: 0.6rem 1rem;
   }
+}
+
+footer {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(90deg, #2a9d8f, #264653);
+  color: white;
+  text-align: center;
+  padding: 5px 0;
+  letter-spacing: 1px;
 }
